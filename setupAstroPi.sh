@@ -10,7 +10,7 @@ function display
     echo ""
 }
 
-display "Hello "$SUDO_USER".  Welcome to the AstroMaster Raspberry Pi 3 Configuration Script."
+display "Hello "$SUDO_USER".  Welcome to the AstroPi Raspberry Pi 3 Configuration Script for Ubuntu Server 16.04 LTS."
 
 display "This will update, install and configure your Raspberry Pi 3 as an INDI server to control your astrophotography equipment."
 
@@ -131,14 +131,7 @@ EOF
 fi
 
 #########################################################
-#############  Very Important Configuration Items
-
-# This will create a swap file for an increased 2 GB of artificial RAM.  This is not needed on all systems, since different cameras download different size images, but if you are using a DSLR, it definitely is.
-# This method is disabled in favor of the zram method below. If you prefer this method, you can re-enable it by taking out the #'s
-#display "Creating SWAP Memory"
-#wget https://raw.githubusercontent.com/Cretezy/Swap/master/swap.sh -O swap
-#sh swap 2G
-#rm swap
+#############  Swap File in RAM
 
 # This will create zram, basically a swap file saved in RAM. It will not read or write to the SD card, but instead, writes to compressed RAM.  
 # This is not needed on all systems, since different cameras download different size images, and different SBC's have different RAM capacities but 
@@ -146,13 +139,16 @@ fi
 display "Installing zRAM for increased RAM capacity, from 1 GB to 1.5 GB"
 apt -y install zram-config
 
+#########################################################
+#############  Enable Serial
+
 # This should fix an issue where you might not be able to use a serial mount connection because you are not in the "dialout" group
 display "Enabling Serial Communication"
 usermod -aG dialout $SUDO_USER
 
 
 #########################################################
-#############  ASTRONOMY SOFTWARE
+#############  Astronomy Software
 
 # Add Repositories
 apt-add-repository ppa:mutlaqja/ppa -y
@@ -176,7 +172,7 @@ display "Installing PHD2"
 apt -y install phd2
 
 #########################################################
-#############  INDI WEB MANAGER
+#############  INDI Web Manager
 
 display "Installing and Configuring INDI Web Manager"
 
@@ -210,7 +206,7 @@ systemctl daemon-reload
 systemctl enable indiwebmanager.service
 
 #########################################################
-#############  File Sharing Configuration
+#############  Samba File Sharing
 
 display "Setting up File Sharing"
 
