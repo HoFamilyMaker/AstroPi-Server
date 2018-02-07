@@ -1,6 +1,6 @@
 # AstroPi-Server
 
-Setup Astrophotography control on Raspberry Pi 3 running Ubuntu Server 16.04LTS ARM
+Setup Astrophotography equipment control using INDI server on Raspberry Pi 3 running Ubuntu Server 16.04LTS ARM
 
 This script was inspired from the AstroPi3 project [https://github.com/rlancaste/AstroPi3].
 Unlike the original project, this script is designed to setup an INDI Server running in a headless (no GUI) installation of Ubuntu Server instead of Ubuntu MATE.
@@ -13,24 +13,20 @@ Unlike the original project, this script is designed to setup an INDI Server run
  4) With LAN cable connected, insert SD into Raspberry Pi 3 and connect power cable.
  5) Log in (via console or SSH) using default credentials (ubuntu/ubuntu).
  6) OS should ask you to change password after first login (if not, run passwd).
- 7) Install git (sudo apt install git).
- 8) Download AstroPi-Server scripts (git clone https://github.com/slightlyremoveddesign/AstroPi-Server.git).
- 9) Browse to the AstroPi-Server directory (cd AstroPi-Server).
-10) Make setup script executable (chmod +x setup-AstroPi-Server.sh).
-11) Run setup script with sudo (sudo ./setup-AstroPi-Server.sh).  The script must be ran as a normal user using sudo to elevate priviledges (not as root).
-12) Follow instructions of script.
-13) The last part of the script will ask you to set a password for Samba file access (I recommend using the same password as set in step 6).
-14) Reboot Raspberry Pi (sudo reboot).
-
-
-The WLAN interface will have a static IP of 10.0.0.1 and offer DHCP leases (10.0.0.2-10.0.0.5).
+ 7) Download AstroPi-Server scripts (git clone https://github.com/slightlyremoveddesign/AstroPi-Server.git).
+ 8) Browse to the AstroPi-Server directory (cd AstroPi-Server).
+ 9) Make setup script executable (chmod +x setup-AstroPi-Server.sh).
+10) Run setup script with sudo (sudo ./setup-AstroPi-Server.sh).  The script must be ran as a normal user using sudo to elevate priviledges (not as root).
+11) Follow instructions of script.
+12) The last part of the script will ask you to set a password for Samba file access (I recommend using the same password as set in step 6).
+13) Reboot Raspberry Pi (sudo reboot).
 
 ## Script Details (what does it do?)
  1) Ubuntu Server 16.04 has some minor initial problems on the Raspberry Pi 3, this script will apply the needed fixes (see https://raspberrypi.stackexchange.com/questions/72337/how-do-i-install-ubuntu-server-16-04-on-pi3-model-b).
- 2) Install updates
+ 2) Install software and Linux kernel updates.
  3) Increase Maximum USB Current (for all ports combined) from 600mA to 1200mA.  Make sure your power supply is capable supplying the extra current.
  4) Configure WLAN interface with static IP address (10.0.0.1/24).
- 5) Configure WLAN interface to automatically restart/stop services for DHCP and Hotsopt.
+ 5) Configure WLAN interface to automatically restart/stop services for DHCP and Hotspot.
  5) Configure WLAN interface to supply IP addresses via DHCP (10.0.0.2-10.0.0.5).
  6) Configure WLAN interface as WiFi Hotspot (SSID: AstroPi / PSK: Andromeda) for use in the field.
  7) Set hostname to AstroPi.
