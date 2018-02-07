@@ -14,10 +14,10 @@ Unlike the original project, this script is designed to setup an INDI Server run
  5) Log in (via console or SSH) using default credentials (ubuntu/ubuntu).
  6) OS should ask you to change password after first login (if not, run passwd).
  7) Install git (sudo apt install git).
- 8) Download AstroPi scripts (git clone https://github.com/slightlyremoveddesign/AstroPi.git).
- 9) Browse to the AstroPi directory (cd AstroPi).
-10) Make setup script executable (chmod +x setupAstroPi.sh).
-11) Run setup script with sudo (sudo ./setupAstroPi.sh).  The script must be ran as a normal user using sudo to elevate priviledges (not as root).
+ 8) Download AstroPi-Server scripts (git clone https://github.com/slightlyremoveddesign/AstroPi-Server.git).
+ 9) Browse to the AstroPi-Server directory (cd AstroPi-Server).
+10) Make setup script executable (chmod +x setup-AstroPi-Server.sh).
+11) Run setup script with sudo (sudo ./setup-AstroPi-Server.sh).  The script must be ran as a normal user using sudo to elevate priviledges (not as root).
 12) Follow instructions of script.
 13) The last part of the script will ask you to set a password for Samba file access (I recommend using the same password as set in step 6).
 14) Reboot Raspberry Pi (sudo reboot).
