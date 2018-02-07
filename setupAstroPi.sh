@@ -31,10 +31,6 @@ fi
 #########################################################
 #############  Updates
 
-# This would update the Raspberry Pi kernel.  For now it is disabled because there is debate about whether to do it or not.  To enable it, take away the # sign.
-#display "Updating Kernel"
-#rpi-update
-
 # Fix for Ubuntu server
 if [[ $(cat /proc/version) == *"raspi2"*"Ubuntu"* ]]; then
 	read -p "Ubuntu installation detected! Is this a fresh installation of Ubuntu Server for RPi 3 (y/n)? " UBUNTU_SERVER_FIX
@@ -82,6 +78,20 @@ if [ ! -f /etc/network/interfaces.d/60-ap-init.cfg ]; then
 	display "Configuring WiFi interface with static IP and enabling Hotspot with DHCP."
 
 	apt -y install hostapd dnsmasq wireless-tools
+	
+	# Configure WLAN interface
+	cat > /etc/network/interfaces.d/60-ap-init.cnf <<- EOF
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet static
+	address 10.0.0.1
+	netmask 255.255.255.0
+	pre-up ip addr flush dev wlan0
+	post-up service hostapd restart
+	post-up service dnsmasq restart
+	pre-down service dnsmasq stop
+	pre-down service hostapd stop
+EOF
 
 	# Set the hostname for the RPi
 	cat > /etc/hostname <<- EOF
@@ -116,20 +126,6 @@ EOF
 
 interface=wlan0
 dhcp-range=10.0.0.2,10.0.0.5,255.255.255.0,12h
-EOF
-
-	# Configure WiFi interface
-	cat > /etc/network/interfaces.d/60-ap-init.cnf <<- EOF
-auto wlan0
-allow-hotplug wlan0
-iface wlan0 inet static
-	address 10.0.0.1
-	netmask 255.255.255.0
-	pre-up ip addr flush dev wlan0
-	post-up service hostapd restart
-	post-up service dnsmasq restart
-	pre-down service dnsmasq stop
-	pre-down service hostapd stop
 EOF
 
 fi
