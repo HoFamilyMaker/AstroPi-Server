@@ -33,7 +33,7 @@ fi
 
 # Fix for Ubuntu server
 if [[ $(cat /proc/version) == *"raspi2"*"Ubuntu"* ]]; then
-	read -p "Ubuntu installation detected! Is this a fresh installation of Ubuntu Server for RPi 3 (y/n)? " UBUNTU_SERVER_FIX
+	read -p "Ubuntu installation detected! Is this a fresh installation of Ubuntu Server 16.04 for RPi 3 (y/n)? " UBUNTU_SERVER_FIX
 	if [[ $UBUNTU_SERVER_FIX == "y" ]]; then
 		display "Applying Ubuntu Server fix for internal WiFi driver."
 		dpkg-divert --divert /lib/firmware/brcm/brcmfmac43430-sdio-2.bin --package linux-firmware-raspi2 --rename --add /lib/firmware/brcm/brcmfmac43430-sdio.bin
@@ -74,35 +74,39 @@ EOF
 fi
 
 # This will configure the internal WiFi as an Access Point and set a static IP address
-if [ ! -f /etc/network/interfaces.d/60-ap-init.cfg ]; then
-	display "Configuring WiFi interface with static IP and enabling Hotspot with DHCP."
+display "Configuring WiFi interface with static IP and enabling Hotspot with DHCP."
 
-	apt -y install hostapd dnsmasq wireless-tools
+apt -y install hostapd dnsmasq wireless-tools
 	
-	# Configure WLAN interface
-	cat > /etc/network/interfaces.d/60-ap-init.cnf <<- EOF
+# Configure WLAN interface
+cat > /etc/network/interfaces.d/50-cloud-init.cnf <<- EOF
+auto lo
+iface lo inet loopback
+
+allow-hotplug eth0
+iface eth0 inet dhcp
+
 auto wlan0
-allow-hotplug wlan0
 iface wlan0 inet static
-	address 10.0.0.1
-	netmask 255.255.255.0
-	pre-up ip addr flush dev wlan0
-	post-up service hostapd restart
-	post-up service dnsmasq restart
-	pre-down service dnsmasq stop
-	pre-down service hostapd stop
+    address 10.0.0.1
+    netmask 255.255.255.0
+    pre-up ip addr flush dev wlan0
+    post-up service hostapd restart
+    post-up service dnsmasq restart
+    pre-down service dnsmasq stop
+    pre-down service hostapd stop
 EOF
 
-	# Set the hostname for the RPi
-	cat > /etc/hostname <<- EOF
+# Set the hostname for the RPi
+cat > /etc/hostname <<- EOF
 AstroPi
 EOF
 
-	# Update hosts file
-	sed -i "1s;^;10.0.0.1 AstroPi.local AstroPi\n;" /etc/hosts
+# Update hosts file
+sed -i "1s;^;10.0.0.1 AstroPi.local AstroPi\n;" /etc/hosts
 
-	# Configure the WiFi Hotspot
-	cat > /etc/hostapd/ap.conf <<- EOF
+# Configure the WiFi Hotspot
+cat > /etc/hostapd/ap.conf <<- EOF
 interface=wlan0
 hw_mode=g
 channel=11
@@ -115,20 +119,18 @@ wpa_passphrase=Andromeda
 ssid=AstroPi
 EOF
 
-	# Set Hotspot config file
-	cat >> /etc/default/hostapd <<- EOF
+# Set Hotspot config file
+cat >> /etc/default/hostapd <<- EOF
 
 DAEMON_CONF="/etc/hostapd/ap.conf"
 EOF
 
-	# Configure DHCP
-	cat >> /etc/dnsmasq.conf <<- EOF
+# Configure DHCP
+cat >> /etc/dnsmasq.conf <<- EOF
 
 interface=wlan0
 dhcp-range=10.0.0.2,10.0.0.5,255.255.255.0,12h
 EOF
-
-fi
 
 #########################################################
 #############  Swap File in RAM
