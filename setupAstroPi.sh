@@ -106,7 +106,10 @@ ssid=AstroPi
 EOF
 
 	# Set Hotspot config file
-	sed -i -e 's/#DAEMON_CONF=""/DAEMON_CONF="//etc//hostapd//ap.conf"/g' /etc/default/hostapd
+	cat >> /etc/default/hostapd <<- EOF
+
+DAEMON_CONF="/etc/hostapd/ap.conf"
+EOF
 
 	# Configure DHCP
 	cat >> /etc/dnsmasq.conf <<- EOF
