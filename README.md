@@ -12,7 +12,7 @@ Unlike the original project, this script is designed to setup an INDI Server run
  3) Use SD Writer (ie: Win32DiskImager, Etcher, etc... in Windows / dd in Linux) to write .img to SD card.
  4) With LAN cable connected, insert SD into Raspberry Pi 3 and connect power cable
  5) Log in (via console or SSH) using default credentials (ubuntu/ubuntu)
- 6) OS should ask you to change password after first login (if not run passwd)
+ 6) OS should ask you to change password after first login (if not, run passwd)
  7) Install git (sudo apt install git)
  8) Download AstroPi scripts (git clone https://github.com/slightlyremoveddesign/AstroPi.git)
  9) Browse to the AstroPi directory (cd AstroPi)
