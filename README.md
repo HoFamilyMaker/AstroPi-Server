@@ -1,11 +1,11 @@
-# AstroPi
+# AstroPi-Server
 
 Setup Astrophotography control on Raspberry Pi 3 running Ubuntu Server 16.04LTS ARM
 
 This script was inspired from the AstroPi3 project [https://github.com/rlancaste/AstroPi3].
 Unlike the original project, this script is designed to setup an INDI Server running in a headless (no GUI) installation of Ubuntu Server instead of Ubuntu MATE.
 
-### Install Instructions ###
+## Install Instructions
 
  1) Download the Ubuntu Server 16.04 LTS install for Raspberry Pi 3 [http://www.finnie.org/software/raspberrypi/ubuntu-rpi3/ubuntu-16.04-preinstalled-server-armhf+raspi3.img.xz].
  2) Extract .img file from .xz archive (use 7-zip in Windows or tar in Linux).
@@ -25,7 +25,7 @@ Unlike the original project, this script is designed to setup an INDI Server run
 
 The WLAN interface will have a static IP of 10.0.0.1 and offer DHCP leases (10.0.0.2-10.0.0.5).
 
-### Script Details (what does it do?) ###
+## Script Details (what does it do?)
  1) Ubuntu Server 16.04 has some minor initial problems on the Raspberry Pi 3, this script will apply the needed fixes (see https://raspberrypi.stackexchange.com/questions/72337/how-do-i-install-ubuntu-server-16-04-on-pi3-model-b).
  2) Install updates
  3) Increase Maximum USB Current (for all ports combined) from 600mA to 1200mA.  Make sure your power supply is capable supplying the extra current.
@@ -45,7 +45,7 @@ The WLAN interface will have a static IP of 10.0.0.1 and offer DHCP leases (10.0
 16) Add user to group with permission to use Samba (asks user to set Samba password).
 17) Set udevRuleScript.sh as executable (used to give static names to USB devices, use after rebooting).
 
-### TODO ###
+## TODO
  - Add script or interface to allow for changing of IP, Hostname, DHCP, Hotspot, etc...
  - Add script or interface to allow for changing of Samba file shares.
  - Create Web interface for controlling equipment (if I find the time).
