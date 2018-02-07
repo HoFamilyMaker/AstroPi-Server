@@ -35,11 +35,12 @@ Unlike the original project, this script is designed to setup an INDI Server run
 10) Add user to dialout group (allows serial communication).
 11) Add INDI and PHD2 repositories to APT.
 12) Install Astronomy software (INDI, General Star Catalog, Astrometry.net, and PHD2).
-13) Install and update python-pip.
-14) Install INDI Web Manager and configure as startup service (accessable at http://AstroPi.local:8624).
-15) Install Samba and share user's home directory via SMB.
-16) Add user to group with permission to use Samba (asks user to set Samba password).
-17) Set udevRuleScript.sh as executable (used to give static names to USB devices, use after rebooting).
+13) Install Astrometry.net Indices for 0.5-2.0 deg FOV
+14) Install and update python-pip.
+15) Install INDI Web Manager and configure as startup service (accessable at http://AstroPi.local:8624).
+16) Install Samba and share user's home directory via SMB.
+17) Add user to group with permission to use Samba (asks user to set Samba password).
+18) Set udevRuleScript.sh as executable (used to give static names to USB devices, use after rebooting).
 
 ## TODO
  - Add script or interface to allow for changing of IP, Hostname, DHCP, Hotspot, etc...
