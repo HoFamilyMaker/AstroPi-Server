@@ -174,6 +174,29 @@ display "Installing PHD2"
 apt -y install phd2
 
 #########################################################
+#############  Astrometry Indices (4207 to 4210 for 0.5-2.0 deg FOV)
+
+cat > /usr/share/astrometry/list.txt <<- EOF
+http://broiler.astrometry.net/~dstn/4200/index-4207-00.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-01.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-02.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-03.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-04.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-05.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-06.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-07.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-08.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-09.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-10.fits
+http://broiler.astrometry.net/~dstn/4200/index-4207-11.fits
+http://broiler.astrometry.net/~dstn/4200/index-4208.fits
+http://broiler.astrometry.net/~dstn/4200/index-4209.fits
+http://broiler.astrometry.net/~dstn/4200/index-4210.fits
+EOF
+
+wget -P /usr/share/astrometry -i /usr/share/astrometry/list.txt
+
+#########################################################
 #############  INDI Web Manager
 
 display "Installing and Configuring INDI Web Manager"
