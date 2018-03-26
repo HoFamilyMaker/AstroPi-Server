@@ -53,8 +53,8 @@ apt -y dist-upgrade
 # Fix for Ubuntu server WiFi driver
 if [[ $UBUNTU_SERVER_FIX == "y" ]]; then
 	mv /lib/firmware/brcm/brcmfmac43430-sdio.bin /lib/firmware/brcm/brcmfmac43430-sdio.bin.old
-	wget -P /lib/firmware/brcm https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm80211/brcm/brcmfmac43430-sdio.bin
-	wget -P /lib/firmware/brcm https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm80211/brcm/brcmfmac43430-sdio.txt
+	wget -P /lib/firmware/brcm https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm/brcmfmac43430-sdio.bin
+	wget -P /lib/firmware/brcm https://github.com/RPi-Distro/firmware-nonfree/raw/master/brcm/brcmfmac43430-sdio.txt
 fi
 
 # This will increase the maximum USB current (for all ports combined) from 600mA to 1200mA
@@ -79,7 +79,7 @@ display "Configuring WiFi interface with static IP and enabling Hotspot with DHC
 apt -y install hostapd dnsmasq wireless-tools
 	
 # Configure WLAN interface
-cat > /etc/network/interfaces.d/50-cloud-init.cnf <<- EOF
+cat > /etc/network/interfaces.d/50-cloud-init.cfg <<- EOF
 auto lo
 iface lo inet loopback
 
